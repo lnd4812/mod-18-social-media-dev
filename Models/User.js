@@ -8,31 +8,25 @@ const UserSchema = new Schema(
             Unique: true,
             Required: true,
             Trimmed: true
-        }
-    },
-    {
+        },
         email: {
             type: String,
             Required: true,
             Unique: true,
             // match valid email address
-        }
-    },
-    {
+        },
         thoughts: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Thought'
-            }
-        ]
-    },
-    {
+            // {
+            //     type: Schema.Types.ObjectId,
+            //     ref: 'Thought'
+            //  }
+        ],
         friends: [
-            {
-                type: Schema,
-                ref: 'User'
-            }
-        ]
+            // {
+            //     type: Schema,
+            //     ref: 'User'
+            // }
+        ],
     },
     {
         toJSON: {
@@ -42,10 +36,10 @@ const UserSchema = new Schema(
     }
 );
 
-// retrieve length of user's friends array field on query
-UserSchema.virtual('friendCount').get(function() {
-    return this.friends.length;
-});
+// // retrieve length of user's friends array field on query
+// UserSchema.virtual('friendCount').get(function() {
+//     return this.friends.length;
+// });
 
 const User = model('User', UserSchema);
 

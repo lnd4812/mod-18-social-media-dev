@@ -12,7 +12,7 @@ const userController = {
     },
 
     // get a user by id
-    getUserById({ params}, res) {
+    getUserById({ params }, res) {
         User.findOne({ _id: params.id })
         .then(userData => {
             if(!userData) {
@@ -56,7 +56,6 @@ const userController = {
             })
             .catch(err => res.status(400).json(err));
     }
-
 }
 
 module.exports = userController;

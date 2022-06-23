@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lnd4812/mod-18-social-media-dev#readme",
   "dependencies": {
+    "express": "^4.18.1",
     "mongoose": "^6.4.0"
   }
 }
