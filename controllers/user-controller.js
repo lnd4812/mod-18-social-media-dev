@@ -4,6 +4,12 @@ const userController = {
     // get all users
     getAllUser(req, res) {
         User.find({})
+        .populate({
+            path: "thoughts",
+            select: '-_v'
+        })
+        .select('-_v')
+        .sort({ _id: -1 })
         .then(userData => res.json(userData))
         .catch(err => {
             console.log(err);
@@ -13,7 +19,12 @@ const userController = {
 
     // get a user by id
     getUserById({ params }, res) {
-        User.findOne({ _id: params.id })
+      User.findOne({ _id: params.id })
+       .populate({
+            path: 'thoughts',
+            select: '-_v'
+       })
+        .select(`-_v`)
         .then(userData => {
             if(!userData) {
                 res.status(404).json({ message: "No user with id.  Please try again!"});
