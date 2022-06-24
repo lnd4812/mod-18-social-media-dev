@@ -8,7 +8,7 @@ Mod-18-social-media-dev
 
 This program  
 
-Output is based on the acceptance criteria outlined in the Module 14 Assignment Overview [Module-18-assignment](https://courses.bootcampspot.com/courses/1181/assignments/23378?module_item_id=466035).
+Output is based on the acceptance criteria outlined in the Module 18 Assignment Overview [Module-18-assignment](https://courses.bootcampspot.com/courses/1181/assignments/23378?module_item_id=466035).
 
 An animated example of the expected layout of the blog is included in the Challenge outline.
 
