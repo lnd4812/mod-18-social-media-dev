@@ -22,8 +22,24 @@ const thoughtController = {
         .catch(err => res.json(err));
     },
 
+    addReaction({ params, body }, ) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $push: { reactions: body }},
+            { new: true }
+        )
+        .then(userData => {
+            if (!userData) {
+                res.status(404).json({ message: "there is no user with that id. Plase try again."});
+                return;
+            }
+            res.json(userData);
+        })
+        .catch(err => res.json(err));
+    },
+
     // delete thought 
-    deleteThought({ params, }, res) {
+    deleteThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
             .then(deletedThought => {
                 if(!deletedThought) {
@@ -44,6 +60,16 @@ const thoughtController = {
                 res.json(userData);
             })
             .catch(err => res.json(err));
+    },
+
+    deleteReaction({ params }, res) {
+        Thought.findOneAndDelete(
+            { _id: params.thoughtId },
+            { $pull: { reactions: { reactionId: params.reactionId }}},
+            { new: true }
+        )
+        .then(userData => res.json(userData))
+        .catch(err => res.json(err));
     }
 };
 
