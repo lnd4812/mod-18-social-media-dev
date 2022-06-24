@@ -9,7 +9,7 @@ router
     
 // set up api routes specific to "id"
 router
-    .route('./:id')
+    .route('/:id')
     .get(getUserById)
     .put(updateUser)
     .delete(deleteUser)

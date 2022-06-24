@@ -20,7 +20,6 @@ const userController = {
                 return;
             }
             res.json(userData);
-            res.status(400).json(err);
         });
     },
 
@@ -41,7 +40,7 @@ const userController = {
                 }
                 res.json(userData);
             })
-            .catch(err => res.status(400).json(err));
+            .catch(err => res.status(404).json(err));
     },
 
     // delete a user
@@ -56,6 +55,6 @@ const userController = {
             })
             .catch(err => res.status(400).json(err));
     }
-}
+};
 
 module.exports = userController;

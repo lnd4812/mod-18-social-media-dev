@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-
 const UserSchema = new Schema(
     {
         username: {
@@ -16,10 +15,10 @@ const UserSchema = new Schema(
             // match valid email address
         },
         thoughts: [
-            // {
-            //     type: Schema.Types.ObjectId,
-            //     ref: 'Thought'
-            //  }
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought'
+             }
         ],
         friends: [
             // {
@@ -33,13 +32,13 @@ const UserSchema = new Schema(
             virtuals: true,
             getters: true
         },
+        id: false
     }
 );
-
 // // retrieve length of user's friends array field on query
-// UserSchema.virtual('friendCount').get(function() {
-//     return this.friends.length;
-// });
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
 
 const User = model('User', UserSchema);
 
