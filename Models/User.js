@@ -26,11 +26,11 @@ const UserSchema = new Schema(
       },
     ],
     friends: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        minLength: 0
-      }
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "User",
+    //     minLength: 0
+    //   }
     ],
   },
   {

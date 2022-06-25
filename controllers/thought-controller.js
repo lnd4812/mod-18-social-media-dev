@@ -1,7 +1,36 @@
 const { Thought, User } = require('../models');
 
-// set up functions to add and delete thought comments
+// set up functions to get, add, update and delete thought comments
 const thoughtController = {
+    getAllThought(req, res) {
+        Thought.find({})
+          .populate({
+            path: "reactions",
+            select: "-_v"
+          })
+          .select("-_v")
+          .sort({ _id: -1})
+          .then(thoughtData => res.json(thoughtData))
+          .catch(err => {
+            console.log(err);
+            res.sendStatus(400);
+          })
+    },
+    
+    getThoughtById({ params }, res) {
+        Thought.findOne({ _id: params.thoughtId})
+           .populate({
+              path: "reactions",
+              select: "-_v"
+           })
+           .select("-_v")
+           .then(thoughtData => res.json(thoughtData))
+           .catch(err => {
+              console.log(err);
+              res.sendStatus(400);
+            });
+    },
+        
     addThought({ params, body }, res) {
         console.log(body);
         Thought.create(body)
@@ -14,7 +43,7 @@ const thoughtController = {
         })
         .then(userData => {
             if (!userData) {
-                res.status(404).json({ message: 'No user with that id.  Please try again.'});
+                res.status(404).json({ message: "No match to that user id.  Please try again."});
                 return;
             }
             res.json(userData);
@@ -22,20 +51,32 @@ const thoughtController = {
         .catch(err => res.json(err));
     },
 
-    addReaction({ params, body }, ) {
+    addReaction({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
             { $push: { reactions: body }},
-            { new: true }
+            { new: true, runValidators: true }
         )
         .then(userData => {
             if (!userData) {
-                res.status(404).json({ message: "there is no user with that id. Plase try again."});
+                res.status(404).json({ message: "No match to that user id.  Please try again."});
                 return;
             }
             res.json(userData);
         })
         .catch(err => res.json(err));
+    },
+
+    updateThought({ params, body}, res) {
+        Thought.findOneAndUpdate({ _id: params.thoughtId }, body, {upsert: true, useFindAndModify:false, runValidators: true})
+            .then(thoughtData => {
+                if (!thoughtData) {
+                    res.status(404).json({ message: "No match to that thought id. Please try again"})
+                    return;
+                }
+                res.json(thoughtData);
+            })
+            .catch(err => res.json(err));
     },
 
     // delete thought 
@@ -43,18 +84,18 @@ const thoughtController = {
         Thought.findOneAndDelete({ _id: params.thoughtId })
             .then(deletedThought => {
                 if(!deletedThought) {
-                    return res.status(404).json({ message: "That id does not match any comment.  Please try again."})
+                    return res.status(404).json({ message: "No match to that thought id.  Please try again."})
                 }
             // and remove from User    
             return User.findOneAndUpdate(
                 { _id: params.userId }, 
                 { $pull: { thoughts: params.thoughtId }},
-                { new: true }
+                { upsert: true, useFindAndModify:false }
                 );    
             })
             .then(userData => {
                 if(!userData) {
-                    res.status(404).json({ message: "No user with that id.  Please try again"});
+                    res.status(404).json({ message: "No user match to that id.  Please try again."});
                     return;
                 }
                 res.json(userData);
