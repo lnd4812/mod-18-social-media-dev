@@ -41,6 +41,24 @@ const userController = {
             .catch(err => res.status(400).json(err));
     },
 
+    // add a new friend to user's friend list
+    addFriend({ params, body }, ) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $push: { friends: body }},
+            { new: true }
+        )
+        .then(userData => {
+            if (!userData) {
+                res.status(404).json({ message: "there is no user with that id. Plase try again."});
+                return;
+            }
+            res.json(userData);
+        })
+        .catch(err => res.json(err));
+    },
+
+
     // update a user by id
     updateUser({ params, body }, res) {
         User.findOneAndUpdate({ _id: params.id }, body, { new: true })
@@ -65,6 +83,15 @@ const userController = {
                 res.json(userData);
             })
             .catch(err => res.status(400).json(err));
+    },
+    deleteFriend({ params }, res) {
+        User.findOneAndDelete(
+            { _id: params.userId },
+            { $pull: { friends: { friendId: params.friendId }}},
+            { new: true }
+        )
+        .then(userData => res.json(userData))
+        .catch(err => res.json(err));
     }
 };
 
