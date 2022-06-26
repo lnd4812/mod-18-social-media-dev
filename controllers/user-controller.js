@@ -51,7 +51,8 @@ const userController = {
       { _id: params.userId },
       { $push: { friends: body } },
       { new: true }
-    )
+      )
+      .select("-_v")
       .then(userData => {
         if (!userData) {
           res
@@ -120,7 +121,7 @@ const userController = {
 
 
   deleteFriend({ params }, res) {
-    User.findOneAndDelete(
+    User.findOneAndUpdatea(
       { _id: params.userId },
       { $pull: { friends: { friendId: params.id } } },
       { new: true }
