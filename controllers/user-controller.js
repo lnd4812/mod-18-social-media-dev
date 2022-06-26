@@ -27,7 +27,7 @@ const userController = {
         select: "-_v",
       })
       .select("-_v")
-      .then((userData) => {
+      .then(userData => {
         if (!userData) {
           res
             .status(404)
@@ -46,13 +46,13 @@ const userController = {
   },
 
   // add a new friend to user's friend list
-  addFriend({ params, body }) {
+  addFriend({ params, body }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
       { $push: { friends: body } },
       { new: true }
     )
-      .then((userData) => {
+      .then(userData => {
         if (!userData) {
           res
             .status(404)
@@ -67,7 +67,7 @@ const userController = {
   // update a user by id
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true })
-      .then((userData) => {
+      .then(userData => {
         if (!userData) {
           res
             .status(404)
@@ -81,7 +81,9 @@ const userController = {
 
   // delete a user
   deleteUser({ params }, res) {
-    User.findOneAndDelete({ _id: params.id })
+    User.findOneAndDelete(
+      { _id: params.id })
+      // { $pull: { thoughts: { thoughtsId: params.thoughtId } } })
       .then((userData) => {
         if (!userData) {
           res
@@ -89,6 +91,7 @@ const userController = {
             .json({ message: "No match to that user id.  Please try again." });
           return;
         }
+        // delete any associated thoughts ???
         res.json(userData);
       })
       .catch((err) => res.status(400).json(err));
@@ -105,4 +108,4 @@ const userController = {
   },
 };
 
-module.exports = userController;
+  module.exports = userController;

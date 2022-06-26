@@ -32,14 +32,16 @@ const thoughtController = {
     },
         
     addThought({ params, body }, res) {
-        console.log(body);
-        Thought.create(body)
+      Thought.create(body)
         .then(({ _id }) => {
             return User.findOneAndUpdate(
                 {_id: params.userId},
                 { $push: { thoughts: _id} },
-                { new: true, runValidators: true }
-            );
+                { new: true, runValidators: true })
+                .populate({
+                    path: "reactions",
+                    select: "-_v"
+                });
         })
         .then(userData => {
             if (!userData) {
@@ -59,7 +61,7 @@ const thoughtController = {
         )
         .then(userData => {
             if (!userData) {
-                res.status(404).json({ message: "No match to that user id.  Please try again."});
+                res.status(404).json({ message: "No match to that thought id.  Please try again."});
                 return;
             }
             res.json(userData);
@@ -68,29 +70,43 @@ const thoughtController = {
     },
 
     updateThought({ params, body}, res) {
-        Thought.findOneAndUpdate({ _id: params.thoughtId }, body, {upsert: true, useFindAndModify:false, runValidators: true})
-            .then(thoughtData => {
-                if (!thoughtData) {
-                    res.status(404).json({ message: "No match to that thought id. Please try again"})
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId }, 
+            { $push: { thoughts: body }},
+            { new: true, runValidators: true }
+            )
+            .then(({ _id }) => {
+                return User.findOneAndUpdate(
+                    {_id: params.userId},
+                    { $push: { thoughts: _id} },
+                    { new: true, runValidators: true })
+                    .populate({
+                        path: "reactions",
+                        select: "-_v"
+                    });
+            })
+            .then(userData => {
+                if (!userData) {
+                    res.status(404).json({ message: "No match to that user id.  Please try again."});
                     return;
                 }
-                res.json(thoughtData);
+                res.json(userData);
             })
             .catch(err => res.json(err));
-    },
+        },
 
     // delete thought 
     deleteThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
             .then(deletedThought => {
                 if(!deletedThought) {
-                    return res.status(404).json({ message: "No match to that thought id.  Please try again."})
+                    return res.status(404).json({ message: "No match to that id.  Please try again."})
                 }
             // and remove from User    
             return User.findOneAndUpdate(
                 { _id: params.userId }, 
                 { $pull: { thoughts: params.thoughtId }},
-                { upsert: true, useFindAndModify:false }
+                { new: true }
                 );    
             })
             .then(userData => {

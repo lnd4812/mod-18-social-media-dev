@@ -26,12 +26,20 @@ const UserSchema = new Schema(
       },
     ],
     friends: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "User",
-    //     minLength: 0
-    //   }
-    ],
+     {
+      // set custom id
+      friendId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        default: () => new Types.ObjectId()
+      },
+      friendBody: {
+        type: String,
+        required: true,
+        minLength: 1
+      }
+     }
+    ]
   },
   {
     toJSON: {

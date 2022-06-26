@@ -24,11 +24,11 @@ router
  
 // add routes for friends array
 router
-    .route('/:userId/friends')
+    .route('/:userId')
     .post(addFriend);
     
 router
-    .route('/:userId/:friendId')
+    .route('/:userId/friends/:friendId')
     .delete(deleteFriend);  
 
 module.exports = router;
