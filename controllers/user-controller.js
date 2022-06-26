@@ -83,24 +83,46 @@ const userController = {
   deleteUser({ params }, res) {
     User.findOneAndDelete(
       { _id: params.id })
-      // { $pull: { thoughts: { thoughtsId: params.thoughtId } } })
-      .then((userData) => {
-        if (!userData) {
-          res
-            .status(400)
-            .json({ message: "No match to that user id.  Please try again." });
+    .then((userData) => {
+      if (!userData) {res.status(400).json({ message: "No match to that user id.  Please try again." });
           return;
         }
         // delete any associated thoughts ???
-        res.json(userData);
+        res.json({ message: "User successfully deleted."});
       })
       .catch((err) => res.status(400).json(err));
   },
 
+// delete thoughts associated with User, then delete User?
+
+//  deleteUser({ params }, res) {
+//    User.findOneAndUpdate(
+//     { _id: params.id })
+//    .then(userData => {
+//    if (!userData) {
+//       {res.status(400).json({ message: "No match to that user id.  Please try again." });
+//       return;
+//       } if (thoughtData) {
+//           Thought.findAndDeleteMany(
+//              { _id: params.userId }, 
+//              { $pullAll: { thoughts: params.thoughtId }},
+//              { new: true }
+//              return; });
+//        }    
+//          .then(userData => {
+//           return User.findOneAndDelete(
+//           { _id: params.id })
+//       .then(userData => {
+//       res.json({ message: "User successfully deleted."});
+//       })
+//       .catch((err) => res.status(400).json(err));
+//       },
+
+
   deleteFriend({ params }, res) {
     User.findOneAndDelete(
       { _id: params.userId },
-      { $pull: { friends: { friendId: params.friendId } } },
+      { $pull: { friends: { friendId: params.id } } },
       { new: true }
     )
       .then((userData) => res.json(userData))
@@ -108,4 +130,4 @@ const userController = {
   },
 };
 
-  module.exports = userController;
+module.exports = userController;

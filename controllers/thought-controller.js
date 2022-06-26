@@ -4,12 +4,6 @@ const { Thought, User } = require('../models');
 const thoughtController = {
     getAllThought(req, res) {
         Thought.find({})
-          .populate({
-            path: "reactions",
-            select: "-_v"
-          })
-          .select("-_v")
-          .sort({ _id: -1})
           .then(thoughtData => res.json(thoughtData))
           .catch(err => {
             console.log(err);
@@ -19,11 +13,6 @@ const thoughtController = {
     
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.thoughtId})
-           .populate({
-              path: "reactions",
-              select: "-_v"
-           })
-           .select("-_v")
            .then(thoughtData => res.json(thoughtData))
            .catch(err => {
               console.log(err);
@@ -36,13 +25,9 @@ const thoughtController = {
         .then(({ _id }) => {
             return User.findOneAndUpdate(
                 {_id: params.userId},
-                { $push: { thoughts: _id} },
-                { new: true, runValidators: true })
-                .populate({
-                    path: "reactions",
-                    select: "-_v"
-                });
-        })
+                { $push: { thoughts: _id, body } },
+                { new: true })
+            })
         .then(userData => {
             if (!userData) {
                 res.status(404).json({ message: "No match to that user id.  Please try again."});
@@ -55,13 +40,13 @@ const thoughtController = {
 
     addReaction({ params, body }, res) {
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId },
+            { _id: params.thoughtId }, body,
             { $push: { reactions: body }},
             { new: true, runValidators: true }
         )
         .then(userData => {
             if (!userData) {
-                res.status(404).json({ message: "No match to that thought id.  Please try again."});
+                res.status(404).json({ message: "No match to that Thought id.  Please try again."});
                 return;
             }
             res.json(userData);
@@ -69,21 +54,18 @@ const thoughtController = {
         .catch(err => res.json(err));
     },
 
-    updateThought({ params, body}, res) {
+    updateThought({ params, body }, res) {
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId }, 
-            { $push: { thoughts: body }},
-            { new: true, runValidators: true }
-            )
-            .then(({ _id }) => {
-                return User.findOneAndUpdate(
-                    {_id: params.userId},
-                    { $push: { thoughts: _id} },
-                    { new: true, runValidators: true })
-                    .populate({
-                        path: "reactions",
-                        select: "-_v"
-                    });
+            { _id: params.id }, body, {new: true, runValidators: true})
+            .then(thoughtData => {
+                res.json(thoughtData)
+            })
+            then(({ _id }) => {
+            return User.findOneAndUpdate(
+                {_id: params.userId},
+                { $push: { thoughts: _id } },
+                { new: true, runValidators: true }
+                )       
             })
             .then(userData => {
                 if (!userData) {
@@ -114,18 +96,20 @@ const thoughtController = {
                     res.status(404).json({ message: "No user match to that id.  Please try again."});
                     return;
                 }
-                res.json(userData);
+                res.json({userData, message: "Thought and any associated Reactions successfully deleted"});
             })
             .catch(err => res.json(err));
     },
 
     deleteReaction({ params }, res) {
-        Thought.findOneAndDelete(
+        Thought.findOne(
             { _id: params.thoughtId },
-            { $pull: { reactions: { reactionId: params.reactionId }}},
-            { new: true }
+            { $pull: { reactions: { reactionId: params.reactionId }}}
         )
-        .then(userData => res.json(userData))
+        .then(userData => {
+            console.log(userData)
+           return res.json(userData)
+         })
         .catch(err => res.json(err));
     }
 };

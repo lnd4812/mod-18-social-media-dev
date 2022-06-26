@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const UserSchema = new Schema(
   {
@@ -19,6 +19,8 @@ const UserSchema = new Schema(
        },
         required: [true, "User email address required"]
     },
+    
+    // do either of these need to be Stringified somewhere?
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -27,15 +29,12 @@ const UserSchema = new Schema(
     ],
     friends: [
      {
-      // set custom id
       friendId: {
         type: Schema.Types.ObjectId,
-        ref: "User",
-        default: () => new Types.ObjectId()
+        ref: "User"
       },
       friendBody: {
         type: String,
-        required: true,
         minLength: 1
       }
      }
@@ -55,6 +54,11 @@ UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
 
+// UserSchema.virtual("friendId").get(function () {
+//   return this.friendId.toString()
+// });
+
 const User = model("User", UserSchema);
+
 
 module.exports = User;
