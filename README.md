@@ -46,7 +46,7 @@ Insomnia used for testing
 ## Credits
 
 * Similar to the Module 14 assignment, the majority of the program coding is based on the module 18 lesson material. Also similar to that assignment, as the challenge and acceptance criteria are very similar to those lessons and a large percentage of the variables and other coding are based on standard practicies and naming conventions, there is a fair amount of duplication of that material in my applicaton.
-* Documentation for MongoDB [npm page](https://www.npmjs.com/package/) and Mongoose [npm page](https://www.npmjs.com/package/)
+* Documentation for MongoDB [npm page](https://www.npmjs.com/package/mongodb) and Mongoose [npm page](https://www.npmjs.com/package/mongoose)
 * As usual, several visits to Stack Overflow [website](https://stackoverflow.com) provided some finetuning or helped to clarify certain items in the modules.
 * TA's during office hours and my tutor in my weekly tutoring session were also key in helping me to get this app working.
 
@@ -56,7 +56,7 @@ If you have any questions, please see my contact details below:
 
 ## GitHub Username
 
-My GitHub Username is [github.com/lnd4812](github.com/lnd4812).  
+My GitHub Username is [github.com/lnd4812](https://github.com/lnd4812).  
 
 ## GitHub Repository
 
