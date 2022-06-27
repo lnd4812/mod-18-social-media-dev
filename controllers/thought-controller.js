@@ -37,7 +37,7 @@ const thoughtController = {
         .then(({ _id }) => {
             return User.findOneAndUpdate(
                 {_id: params.userId},
-                { $push: { thoughts: _id, body } },
+                { $push: { thoughts: _id } },
                 { new: true })
             })
         .then(userData => {
@@ -88,7 +88,7 @@ const thoughtController = {
 
     // delete thought 
     deleteThought({ params }, res) {
-        Thought.findOneAndDelete({ _id: params.thoughtId })
+        Thought.findOneAndDelete({ _id: params.id })
             .then(deletedThought => {
                 if(!deletedThought) {
                     return res.status(404).json({ message: "No match to that id.  Please try again."})

@@ -64,7 +64,7 @@ My GitHub repository link for this project is via this [Link](https://github.com
 
 ## Application video link
 
-The link to the video walk through of program functionality: [https://](https://)
+The link to the video walk through of program functionality: [https://](https://www.vidline.com/share/V0XWRHJB6B/3a38acfde86e8c07b49a76a6462d2e06)
 
 ## Contact information
 
