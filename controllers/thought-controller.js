@@ -69,10 +69,7 @@ const thoughtController = {
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.id }, body, {new: true, runValidators: true})
-            .then(thoughtData => {
-                res.json(thoughtData)
-            })
-            then(({ _id }) => {
+            .then(({ _id }) => {
             return User.findOneAndUpdate(
                 {_id: params.userId},
                 { $push: { thoughts: _id } },
@@ -119,8 +116,7 @@ const thoughtController = {
             { $pull: { reactions: { reactionId: params.reactionId }}}
         )
         .then(userData => {
-            console.log(userData)
-           return res.json(userData)
+            return res.json({userData, message: "Reaction successfully deleted"});
          })
         .catch(err => res.json(err));
     }
