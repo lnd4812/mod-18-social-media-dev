@@ -60,11 +60,11 @@ My GitHub Username is [github.com/lnd4812](https://github.com/lnd4812).
 
 ## GitHub Repository
 
-My GitHub repository link for this project is via this 1) [Video 1 Link - User API routes](https://github.com/lnd4812/mod-18-social-media-dev)
+My GitHub repository link for this project is via this [Link](https://github.com/lnd4812/mod-18-social-media-dev)
 
 ## Application video link
 
-The link to the video walk through of program functionality: [https://](https://www.vidline.com/share/V0XWRHJB6B/3a38acfde86e8c07b49a76a6462d2e06)
+The link to the video walk through of program functionality: [[Video 1 Link - User API routes]](https://www.vidline.com/share/V0XWRHJB6B/3a38acfde86e8c07b49a76a6462d2e06)
 
 ## Contact information
 

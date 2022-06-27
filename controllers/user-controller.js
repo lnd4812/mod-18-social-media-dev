@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 const userController = {
   // get all users
@@ -93,32 +93,20 @@ const userController = {
       })
       .catch((err) => res.status(400).json(err));
   },
+  
+  // delete a user
+  // deleteUser({ params }, res) {
+  //   Thought.pre('findOneAndDelete', async function(next) {
+  //       console.log('trigger when middleware runs', this.getQuery()["_id"]);
+  //       const thoughtId = new mongoose.Types.ObjectId(this.getQuery()["_id"]);
+  //       await User.updateOne({}, { $pull: { thoughts: {_id: thoughtId}}});
+  //       next()
+  //   })
 
-// delete thoughts associated with User, then delete User?
 
-//  deleteUser({ params }, res) {
-//    User.findOneAndUpdate(
-//     { _id: params.id })
-//    .then(userData => {
-//    if (!userData) {
-//       {res.status(400).json({ message: "No match to that user id.  Please try again." });
-//       return;
-//       } if (thoughtData) {
-//           Thought.findAndDeleteMany(
-//              { _id: params.userId }, 
-//              { $pullAll: { thoughts: params.thoughtId }},
-//              { new: true }
-//              return; });
-//        }    
-//          .then(userData => {
-//           return User.findOneAndDelete(
-//           { _id: params.id })
-//       .then(userData => {
-//       res.json({ message: "User successfully deleted."});
-//       })
-//       .catch((err) => res.status(400).json(err));
-//       },
-
+     
+  //     if (!userData) {res.status(400).json({ message: "No match to that user id.  Please try again." });
+ 
 
   deleteFriend({ params }, res) {
     User.findOneAndUpdate(
