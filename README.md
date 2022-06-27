@@ -64,7 +64,9 @@ My GitHub repository link for this project is via this [Link](https://github.com
 
 ## Application video link
 
-The link to the video walk through of program functionality: [[Video 1 Link - User API routes]](https://www.vidline.com/share/V0XWRHJB6B/3a38acfde86e8c07b49a76a6462d2e06)
+The link to the video walk through of program functionality: [Video 1 Link - User API route testing](https://www.vidline.com/share/V0XWRHJB6B/3a38acfde86e8c07b49a76a6462d2e06)
+
+[Video 2 Link - Thought API route testing](https://www.vidline.com/share/V00YOHO4YO/eb6de02e3b7e21d60c57379a8f02c4b4)
 
 ## Contact information
 
