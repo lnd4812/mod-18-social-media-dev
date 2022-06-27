@@ -20,7 +20,6 @@ const UserSchema = new Schema(
         required: [true, "User email address required"]
     },
     
-    // do either of these need to be Stringified somewhere?
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -31,6 +30,7 @@ const UserSchema = new Schema(
      {
       friendId: {
         type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
         ref: "User"
       },
       friendBody: {
@@ -54,11 +54,6 @@ UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
 
-// UserSchema.virtual("friendId").get(function () {
-//   return this.friendId.toString()
-// });
-
 const User = model("User", UserSchema);
-
 
 module.exports = User;

@@ -4,8 +4,8 @@ const {
     getUserById, 
     createUser, 
     updateUser, 
-    addFriend, 
     deleteUser, 
+    addFriend, 
     deleteFriend
  } = require('../../controllers/user-controller');
 
@@ -24,7 +24,7 @@ router
  
 // add routes for friends array
 router
-    .route('/:userId')
+    .route('/:userId/friends')
     .post(addFriend);
     
 router
