@@ -94,20 +94,7 @@ const userController = {
       .catch((err) => res.status(400).json(err));
   },
   
-  // delete a user
-  // deleteUser({ params }, res) {
-  //   Thought.pre('findOneAndDelete', async function(next) {
-  //       console.log('trigger when middleware runs', this.getQuery()["_id"]);
-  //       const thoughtId = new mongoose.Types.ObjectId(this.getQuery()["_id"]);
-  //       await User.updateOne({}, { $pull: { thoughts: {_id: thoughtId}}});
-  //       next()
-  //   })
-
-
-     
-  //     if (!userData) {res.status(400).json({ message: "No match to that user id.  Please try again." });
- 
-
+  
   deleteFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
