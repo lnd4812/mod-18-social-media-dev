@@ -68,11 +68,11 @@ const thoughtController = {
 
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate(
-            { _id: params.id }, body, {new: true, runValidators: true})
+            { _id: params.thoughtId }, body, {new: true, runValidators: true})
             .then(({ _id }) => {
             return User.findOneAndUpdate(
                 {_id: params.userId},
-                { $push: { thoughts: _id } },
+                { $push: { thoughts: params.thoughtId } },
                 { new: true, runValidators: true }
                 )       
             })
@@ -88,7 +88,7 @@ const thoughtController = {
 
     // delete thought 
     deleteThought({ params }, res) {
-        Thought.findOneAndDelete({ _id: params.id })
+        Thought.findOneAndDelete({ _id: params.thoughtId })
             .then(deletedThought => {
                 if(!deletedThought) {
                     return res.status(404).json({ message: "No match to that id.  Please try again."})

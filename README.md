@@ -6,7 +6,7 @@ Mod-18-social-media-dev
 
 ## Description
 
-This program  
+This purpose of this program is to build and structure an API, using MongoDB, Express.js and Mongoose packages, that would allow Users of a network web application, in this case a social media platform, to interact with each other through Thoughts and Reactions to those Thoughts online.
 
 Output is based on the acceptance criteria outlined in the Module 18 Assignment Overview [Module-18-assignment](https://courses.bootcampspot.com/courses/1181/assignments/23378?module_item_id=466035).
 
@@ -25,11 +25,11 @@ An animated example of the expected layout of the blog is included in the Challe
 
 ## Installation
 
-* From localhost:3001 - .
+* Using the api routes and controllers that have been set up in the files attached to this application, the application is activated by typing "npm start" in CLI to make the connection to localhost:3001.
   
 ## Usage
 
-The site
+The site enables Users of a specific social media web-application to share various bits of information specific to themselves and each other.  For instance, once a User has been created, that user can then post a thought or thoughts, each of which other Users may express an opnoin by posting a reaction to that specific thought, attaching it to the thought Id.
 
 ## License
 
@@ -41,7 +41,7 @@ Please visit [Contributor Covenant website](https://contributor-covenant.org) fo
 
 ## Testing
 
-Insomnia used for testing
+The Insomnia application is used to test the API routes; testing should be able to exhibit the API's creating both Users and Thoughts, the Thoughts being created in association with the User via their ID's.  Testing should also successfully demonstrate the ability to get all Users or Thoughts, as well as get either, update either or delete either by their ID, as well as API's that create and delete a friend or array of friends to a specific User Id as well as create and delete a reaction or array of reactions to a specific Thought Id.
 
 ## Credits
 
@@ -60,7 +60,7 @@ My GitHub Username is [github.com/lnd4812](https://github.com/lnd4812).
 
 ## GitHub Repository
 
-My GitHub repository link for this project is via this [Link](https://github.com/lnd4812/mod-18-social-media-dev)
+My GitHub repository link for this project is via this 1) [Video 1 Link - User API routes](https://github.com/lnd4812/mod-18-social-media-dev)
 
 ## Application video link
 
